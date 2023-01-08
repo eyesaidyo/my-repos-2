@@ -1,5 +1,5 @@
 import { Component } from "react";
-
+import Nav from './Nav'
 import {Link} from 'react-router-dom'
 export class ErrorBoundary extends Component {
   constructor(props) {
@@ -18,10 +18,10 @@ export class ErrorBoundary extends Component {
     if (this.state.error)
       return (
         <div className='app'>
-          
-          <h2 style={{'margin-top':'60px','color':'white','text-align':'center'}}>Sorry, there was an error loading this component</h2>
-          <p style={{'text-align':'center'}} ><span>
-          <a style={{'color':'white','text-align':'center'}} href='https://mygithub.rajonirem.repl.co/'>return home
+          <Nav/>
+          <h2 style={{'marginTop':'60px','color':'white','textAlign':'center'}}>Sorry, there was an error loading this component</h2>
+          <p style={{'textAlign':'center'}} ><span>
+          <a style={{'color':'red','textAlign':'center'}} href='/'><p>return home</p>
           </a>
           </span></p>
         </div>

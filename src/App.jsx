@@ -1,45 +1,41 @@
 import './App.css'
 import Nav from './Nav'
-import {useEffect, useState} from 'react'
+import {PaginationContext} from './PaginationContext'
+import {Pagination} from './Pagination'
+import {useEffect,useReducer,useContext } from 'react'
 import { Routes, Route, Link} from 'react-router-dom'
-// Import the functions you need from the SDKs you need
-import { initializeApp } from "firebase/app";
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
 
-// Your web app's Firebase configuration
-const firebaseConfig = {
-  apiKey: "AIzaSyC85sNSRpDbuXkPVJxZ_uBwtkReOpyLJRM",
-  authDomain: "my-repos-page.firebaseapp.com",
-  projectId: "my-repos-page",
-  storageBucket: "my-repos-page.appspot.com",
-  messagingSenderId: "316973713025",
-  appId: "1:316973713025:web:4a8d612f8d918ba0172f80"
-};
-
-// Initialize Firebase
-const app = initializeApp(firebaseConfig);
 
 
 export default function App() {
-  const [repos, setRepos]= useState([])
-  const [currentPage, setCurrentPage]= useState(1)
+
+  const { toSetPageCount, currentPage, toSetRepos, toSetLastIndex,repos,firstIndex, lastIndex, pageCount}= useContext(PaginationContext)
+  const reposPerPage=8;
+  const buttonsPerPage=5
   async function getUser(){
-const profileResponse= await fetch(`https://api.github.com/users/eyesaidyo/repos?per_page=4&page=${currentPage}`)
+    const totalRepos= await       
+    fetch(`https://api.github.com/users/oluwasetemi`)
+    .then(res=>res.json())
+    .then(data=>data.public_repos)
+    toSetLastIndex(buttonsPerPage)
+     console.log(totalRepos)
+const profileResponse= await fetch(`https://api.github.com/users/oluwasetemi/repos?per_page=${reposPerPage}&page=${currentPage}`)
 .then(res=>res.json())
     .then(res=>{
-      setRepos(res)
+      toSetRepos(res)
+      // console.log(res)
+      toSetPageCount(Math.ceil(totalRepos/reposPerPage))
     })
     
   }
   useEffect(()=>{
       getUser()
-    },[currentPage])
+ },[currentPage])
   const Cards=()=>{
-    
+
     return (
       <div>
-        {repos.map(repo=>{
+        {repos.map((repo)=>{
         return(
           <Link className='repo-item-link' to={repo.name} key={repo.id}>
           <h3 className='repo-item' >{repo.name}</h3>
@@ -54,38 +50,8 @@ const profileResponse= await fetch(`https://api.github.com/users/eyesaidyo/repos
     return(
       <div className='repo-list'>
           <h1>Rasine's Repositories</h1>
-      <Cards/>
-        <div className='btn-cont'>
-      <button
-        className='pg-btn'
-        disabled={currentPage===1}
-        onClick={()=>{
-          setCurrentPage(prev=>prev-1)
-        }}
-        >prev</button>
-      <button 
-        className='pg-btn'
-        onClick={()=>{
-      setCurrentPage(1)
-    }}
-        
-        >1</button>
-      <button
-        className='pg-btn'
-        onClick={()=>{
-      setCurrentPage(2)}
-      }>2</button>
-      <button className='pg-btn' onClick={()=>{
-      setCurrentPage(3)}
-      }>3</button>
-      <button
-        className='pg-btn'
-        disabled={currentPage===3}
-        onClick={()=>{
-          setCurrentPage(prev=>prev+1)
-        }}
-        >next</button>
-          </div>
+          <Cards/>  
+          <Pagination reposPerPage={4} buttonsPerPage={buttonsPerPage} />  
       </div>
     )
   }

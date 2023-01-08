@@ -1,6 +1,6 @@
 import { Outlet, Link } from "react-router-dom";
-import { Fragment } from "react";
-import github from './github.svg';
+
+
 function Nav() {
   const style = { color: "white", textDecoration: "none", padding: "5px", textAlign:'center' };
 
