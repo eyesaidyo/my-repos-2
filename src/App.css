@@ -76,3 +76,13 @@ body{
 p{
   margin: 30px 5px;
 }
+.search-img{
+  width:50px;
+}
+.search-result{
+  margin-top:80px;
+  border:1px solid;
+  border-radius:8px;
+  padding:10px;
+  box-shadow: 10px 5px 5px #474E68;
+}

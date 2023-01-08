@@ -2,7 +2,7 @@ import { Outlet, Link } from "react-router-dom";
 
 
 function Nav() {
-  const style = { color: "white", textDecoration: "none", padding: "5px", textAlign:'center' };
+  const style = { color: "white", textDecoration: "none", padding: "15px", textAlign:'center' };
 
 
   return (
@@ -10,6 +10,9 @@ function Nav() {
       <nav>
         <Link style={style} to="/">
           Home
+        </Link>
+        <Link style={style} to="/search">
+          Search Repos
         </Link>
         <Link style={style} to="/about">
           Error 404

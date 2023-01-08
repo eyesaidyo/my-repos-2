@@ -4,20 +4,21 @@ import {PaginationContext} from './PaginationContext'
 import {Pagination} from './Pagination'
 import {useEffect,useReducer,useContext } from 'react'
 import { Routes, Route, Link} from 'react-router-dom'
-
+import {Search} from './Search'
 
 
 export default function App() {
 
-  const { toSetPageCount, currentPage, toSetRepos, toSetLastIndex,repos,firstIndex, lastIndex, pageCount}= useContext(PaginationContext)
-  const reposPerPage=8;
+  const { toSetPageCount, currentPage, toSetRepos, toSetLastIndex,repos,toSetFirstIndex, lastIndex, pageCount}= useContext(PaginationContext)
+  const reposPerPage=5;
   const buttonsPerPage=5
   async function getUser(){
     const totalRepos= await       
     fetch(`https://api.github.com/users/oluwasetemi`)
     .then(res=>res.json())
     .then(data=>data.public_repos)
-    toSetLastIndex(buttonsPerPage)
+    toSetFirstIndex(currentPage-1)
+    toSetLastIndex((currentPage-1)+buttonsPerPage)
      console.log(totalRepos)
 const profileResponse= await fetch(`https://api.github.com/users/oluwasetemi/repos?per_page=${reposPerPage}&page=${currentPage}`)
 .then(res=>res.json())
@@ -45,13 +46,13 @@ const profileResponse= await fetch(`https://api.github.com/users/oluwasetemi/rep
         </div>
     )
   }
-  const NotFound=()=><h1 style={{'margin-top':'60px'}}>sorry, page not found. check your spelling and try again</h1>
-  const Home=()=>{
+const NotFound=()=><h1 style={{'margin-top':'60px'}}>sorry, page not found. check your spelling and try again</h1>
+const Home=()=>{
     return(
       <div className='repo-list'>
           <h1>Rasine's Repositories</h1>
           <Cards/>  
-          <Pagination reposPerPage={4} buttonsPerPage={buttonsPerPage} />  
+          <Pagination reposPerPage={reposPerPage} buttonsPerPage={buttonsPerPage} />  
       </div>
     )
   }
@@ -97,7 +98,7 @@ const profileResponse= await fetch(`https://api.github.com/users/oluwasetemi/rep
               
           )
           })}
-          
+          <Route path='/search' element={<Search/>} ></Route>
           <Route path='/boundary' element={<About/>} ></Route>
           <Route path='*' element={<NotFound/>}> </Route>
         </Route>

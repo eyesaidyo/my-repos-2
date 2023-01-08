@@ -33,7 +33,7 @@ export const Pagination=({reposPerPage, buttonsPerPage})=>{
            pagesArray.slice(firstIndex, lastIndex).map((num,ind)=>{
              return (
                <button
-                 key={pagesArray.indexOf(num)+1}
+                 key={ind}
                  onClick={()=>{
            toSetCurrentPage(pagesArray.indexOf(num)+1)
                  }} 
