@@ -14,13 +14,13 @@ export default function App() {
   const buttonsPerPage=5
   async function getUser(){
     const totalRepos= await       
-    fetch(`https://api.github.com/users/oluwasetemi`)
+    fetch(`https://api.github.com/users/eyesaidyo`)
     .then(res=>res.json())
     .then(data=>data.public_repos)
     toSetFirstIndex(currentPage-1)
     toSetLastIndex((currentPage-1)+buttonsPerPage)
      console.log(totalRepos)
-const profileResponse= await fetch(`https://api.github.com/users/oluwasetemi/repos?per_page=${reposPerPage}&page=${currentPage}`)
+const profileResponse= await fetch(`https://api.github.com/users/eyesaidyo/repos?per_page=${reposPerPage}&page=${currentPage}`)
 .then(res=>res.json())
     .then(res=>{
       toSetRepos(res)

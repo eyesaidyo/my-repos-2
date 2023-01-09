@@ -51,7 +51,7 @@ export const PaginationProvider=({children})=>{
     } 
   }
   const [state, dispatch]= useReducer(paginationReducer, INITIAL_STATE)
-  const{pageCount,repos}=state
+  
   const toSetFirstIndex=(idx)=>{
     dispatch({type:'CHANGE_FIRST_INDEX', payload:idx})
   }
